@@ -2,7 +2,9 @@ package net.taodianzhang.mysqlproxy.client;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MysqlConnection {
 
@@ -25,7 +27,7 @@ public class MysqlConnection {
 
 		// Java连接MySQL配置时的密码
 
-		String password = "root";
+		String password = "123456";
 
 		try {
 
@@ -35,11 +37,16 @@ public class MysqlConnection {
 
 		// 连续数据库
 
+		//DriverManager.setLoginTimeout(100);
 		Connection conn = DriverManager.getConnection(url, user, password);
-
 		if(!conn.isClosed())
 
 		System.out.println("Succeeded connecting to the Database!");
+		
+		String sqlStr = "select count(1) from t_traderatebad";
+		 Statement stmt = conn.createStatement() ;  
+		 ResultSet rs = stmt.executeQuery(sqlStr) ; 
+		
 		conn.close();
 		}catch(ClassNotFoundException e) {   
 			System.out.println("Sorry,can`t find the Driver!");   
