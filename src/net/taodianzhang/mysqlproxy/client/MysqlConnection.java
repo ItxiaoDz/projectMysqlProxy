@@ -43,9 +43,13 @@ public class MysqlConnection {
 
 		System.out.println("Succeeded connecting to the Database!");
 		
-		String sqlStr = "select count(1) from t_traderatebad";
+		String sqlStr = "select count(1) rowcount from t_traderatebad where userId=266303153";
 		 Statement stmt = conn.createStatement() ;  
 		 ResultSet rs = stmt.executeQuery(sqlStr) ; 
+		 while(rs.next()){
+			 Integer rows = rs.getInt("rowcount");
+			 System.out.println(rows);   
+		 }
 		
 		conn.close();
 		}catch(ClassNotFoundException e) {   
